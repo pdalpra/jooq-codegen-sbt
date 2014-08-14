@@ -26,7 +26,7 @@ object BuildSettings {
   )
 
   lazy val jooqPluginSettings =
-    basicSettings ++ formattingSettings ++ graphSettings
+    basicSettings ++ formattingSettings ++ graphSettings ++ Release.settings
 
   /*************************/
   /** Formatting settings **/

@@ -5,7 +5,7 @@ import BuildSettings._
 import Dependencies._
 
 object JooqPluginBuild extends Build {
-	
+
   override lazy val settings = super.settings ++ {
     shellPrompt := { state => Project.extract(state).currentProject.id + " > " }
   }
@@ -16,6 +16,6 @@ object JooqPluginBuild extends Build {
 
   lazy val root = Project("jooq-codegen-sbt", file("."))
     .settings(jooqPluginSettings: _*)
-    .settings(libraryDependencies ++= allDeps)
+    .settings(libraryDependencies ++= pluginDeps(version.value))
 
 }
