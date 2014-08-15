@@ -6,6 +6,8 @@ import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import net.virtualvoid.sbt.graph.Plugin.graphSettings
 import sbtrelease.ReleasePlugin._
 
+import ModelGen._
+
 object BuildSettings {
 
   /********************/
@@ -22,12 +24,15 @@ object BuildSettings {
       "-target:jvm-1.6",
       "-deprecation",
       "-feature",
-      "-unchecked"
+      "-unchecked",
+      "-language:implicitConversions",
+      "-language:postfixOps",
+      "-language:existentials"
     )
   )
 
   lazy val jooqPluginSettings =
-    basicSettings ++ formattingSettings ++ graphSettings ++ releaseSettings
+    basicSettings ++ modelGenSettings ++ formattingSettings ++ graphSettings ++ releaseSettings
 
   /*************************/
   /** Formatting settings **/
