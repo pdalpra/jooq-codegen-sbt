@@ -5,6 +5,7 @@ import com.typesafe.sbt.SbtScalariform
 import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import net.virtualvoid.sbt.graph.Plugin.graphSettings
 import sbtrelease.ReleasePlugin._
+import sbt.ScriptedPlugin._
 
 import ModelGen._
 
@@ -32,7 +33,7 @@ object BuildSettings {
   )
 
   lazy val jooqPluginSettings =
-    basicSettings ++ modelGenSettings ++ formattingSettings ++ graphSettings ++ releaseSettings
+    basicSettings ++ modelGenSettings ++ formattingSettings ++ graphSettings ++ releaseSettings ++ scriptedTestsSettings
 
   /*************************/
   /** Formatting settings **/
@@ -40,6 +41,12 @@ object BuildSettings {
 
   lazy val formattingSettings = SbtScalariform.scalariformSettings ++ Seq(
     ScalariformKeys.preferences := formattingPreferences
+  )
+
+  lazy val scriptedTestsSettings = scriptedSettings ++ Seq(
+    sbtPlugin           := true,
+    scriptedLaunchOpts ++= Seq("-Xmx512m", "-XX:MaxPermSize=256m", "-Dplugin.version=" + version.value),
+    scriptedBufferLog   := true
   )
 
   import scalariform.formatter.preferences._

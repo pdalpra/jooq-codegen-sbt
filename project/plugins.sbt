@@ -7,3 +7,7 @@ addSbtPlugin("com.github.gseitz" % "sbt-release" % "0.8.3")
 addSbtPlugin("com.typesafe.sbt" % "sbt-pgp" % "0.8.3")
 
 addSbtPlugin("org.scalaxb" % "sbt-scalaxb" % "1.2.1")
+
+libraryDependencies <+= sbtVersion { sv =>
+  "org.scala-sbt" % "scripted-plugin" % sv
+}
