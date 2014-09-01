@@ -1,2 +1,3 @@
-# Expect generation to fail, as no config is defined
+# Expect generation to complete and that the metamodel has been generated
 > generate
+$ exists target/jooq
