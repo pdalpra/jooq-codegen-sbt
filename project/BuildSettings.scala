@@ -46,7 +46,7 @@ object BuildSettings {
   lazy val scriptedTestsSettings = scriptedSettings ++ Seq(
     sbtPlugin           := true,
     scriptedLaunchOpts ++= Seq("-Xmx512m", "-XX:MaxPermSize=256m", "-Dplugin.version=" + version.value),
-    scriptedBufferLog   := false
+    scriptedBufferLog   := true
   )
 
   import scalariform.formatter.preferences._
