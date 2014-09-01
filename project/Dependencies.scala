@@ -4,5 +4,5 @@ object Dependencies {
 
   private val scalaxb = "org.scalaxb" %% "scalaxb" % "1.2.1"
 
-  def pluginDeps(version: String) = Seq(scalaxb)
+  val pluginDeps = Seq(scalaxb)
 }

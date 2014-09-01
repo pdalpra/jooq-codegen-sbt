@@ -16,6 +16,6 @@ object JooqPluginBuild extends Build {
 
   lazy val root = Project("jooq-codegen-sbt", file("."))
     .settings(jooqPluginSettings: _*)
-    .settings(libraryDependencies ++= pluginDeps(version.value))
+    .settings(libraryDependencies ++= pluginDeps)
 
 }
