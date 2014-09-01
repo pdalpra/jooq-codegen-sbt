@@ -1,15 +1,14 @@
 package org.jooq.util.sbt
 
-import javax.xml.bind.JAXB
+import sbt._
 
 import scala.xml.Elem
 
-import org.jooq.util.jaxb.{ Configuration => JOOQConfiguration, Generator => JOOQGenerator, Jdbc => JOOQJdbc }
 import org.jooq.util.sbt.model._
 
 object ConfigurationUtils {
 
-  def getConfiguration(xmlConfig: Option[(Elem, Elem)], codeConfig: Option[(Jdbc, Generator)]) = {
+  def writeConfigFile(xmlConfig: Option[(Elem, Elem)], codeConfig: Option[(Jdbc, Generator)], configFile: File): Unit = {
     val (jdbcXmlString, generatorXmlString) = xmlConfig match {
       case Some((jdbcXml, generatorXml)) => (jdbcXml.toString, generatorXml.toString)
       case None => codeConfig match {
@@ -19,12 +18,10 @@ object ConfigurationUtils {
           throw new IllegalStateException("No configuration, whether through XML or code, is defined for JOOQ's generator.")
       }
     }
-    val jooqJdbc = JAXB.unmarshal(jdbcXmlString, classOf[JOOQJdbc])
-    val jooqGenerator = JAXB.unmarshal(generatorXmlString, classOf[JOOQGenerator])
 
-    val configuration = new JOOQConfiguration
-    configuration.setJdbc(jooqJdbc)
-    configuration.setGenerator(jooqGenerator)
-    configuration
+    IO.delete(configFile)
+    IO.touch(configFile)
+    val xmlContent = Seq("<configuration>", jdbcXmlString, generatorXmlString, "</configuration>")
+    IO.writeLines(configFile, xmlContent, append = true)
   }
 }

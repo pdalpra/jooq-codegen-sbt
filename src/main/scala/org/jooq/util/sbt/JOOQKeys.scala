@@ -2,7 +2,6 @@ package org.jooq.util.sbt
 
 import sbt._
 
-import org.jooq.util.jaxb.Configuration
 import org.jooq.util.sbt.model.{ Generator, Jdbc }
 
 import scala.xml.Elem
@@ -15,8 +14,7 @@ object JOOQKeys {
   val jdbc = settingKey[Option[Jdbc]]("JDBC configuration, as a case class")
   val generator = settingKey[Option[Generator]]("Generator configuration, as a case class")
 
-  val configuration = settingKey[Configuration]("JOOQ's code generator configuration")
-
+  val configFile = settingKey[File]("JOOQ config file passed to the generator")
   val generate = taskKey[Unit]("Generate JOOQ metamodel")
   val regenOnCompile = settingKey[Boolean]("Regenerate metamodel when compiling")
 
