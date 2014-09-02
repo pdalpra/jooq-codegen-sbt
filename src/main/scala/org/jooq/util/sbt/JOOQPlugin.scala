@@ -39,7 +39,6 @@ object JOOQPlugin extends AutoPlugin {
     writeConfigFile(xmlConfig, codeConfig, configFile)
     val fork = new Fork("java", Some("org.jooq.util.GenerationTool"))
     val fullClasspath = classpath :+ configFile.getParentFile
-    println(fullClasspath)
     fork(ForkOptions(bootJars = fullClasspath), Seq("/" + configFile.getName))
   }
 
