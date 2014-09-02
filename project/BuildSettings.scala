@@ -8,6 +8,7 @@ import sbtrelease.ReleasePlugin._
 import sbt.ScriptedPlugin._
 
 import ModelGen._
+import Publish._
 
 object BuildSettings {
 
@@ -33,7 +34,8 @@ object BuildSettings {
   )
 
   lazy val jooqPluginSettings =
-    basicSettings ++ modelGenSettings ++ formattingSettings ++ graphSettings ++ releaseSettings ++ scriptedTestsSettings
+    basicSettings ++ modelGenSettings ++ formattingSettings ++
+      graphSettings ++ publishSettings ++ releaseSettings ++ scriptedTestsSettings
 
   /*************************/
   /** Formatting settings **/
