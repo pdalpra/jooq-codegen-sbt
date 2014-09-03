@@ -6,10 +6,6 @@ import Dependencies._
 
 object JooqPluginBuild extends Build {
 
-  override lazy val settings = super.settings ++ {
-    shellPrompt := { state => Project.extract(state).currentProject.id + " > " }
-  }
-
   /*******************/
   /** Bench Project **/
   /*******************/
