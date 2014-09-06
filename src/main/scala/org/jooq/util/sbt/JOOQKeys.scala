@@ -14,8 +14,7 @@ object JOOQKeys {
   val jdbc = settingKey[Option[Jdbc]]("JDBC configuration, as a case class")
   val generator = settingKey[Option[Generator]]("Generator configuration, as a case class")
 
+  val jooqOutputDirectory = settingKey[File]("Output directory for the generated metamodel")
   val configFile = settingKey[File]("JOOQ config file passed to the generator")
-  val generate = taskKey[Unit]("Generate JOOQ metamodel")
-  val regenOnCompile = settingKey[Boolean]("Regenerate metamodel when compiling")
-
+  val generate = taskKey[Seq[File]]("Generate JOOQ metamodel")
 }

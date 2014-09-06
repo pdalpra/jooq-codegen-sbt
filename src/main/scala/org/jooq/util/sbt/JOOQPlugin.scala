@@ -25,21 +25,32 @@ object JOOQPlugin extends AutoPlugin {
   // -------------- //
 
   val JOOQSettings = Seq(
-    regenOnCompile := false,
     jdbcXml := None,
     generatorXml := None,
     jdbc := None,
     generator := None,
+    jooqOutputDirectory := (sourceManaged in Compile).value / "java",
     configFile := target.value / "jooq" / "jooq-config.xml",
-    generate := generateMetaModel(zip(jdbcXml.value, generatorXml.value), zip(jdbc.value, generator.value), (fullClasspath in Runtime).value.map(_.data), configFile.value),
-    compile in Compile := { if (regenOnCompile.value) (compile in Compile).dependsOn(generate).value else (compile in Compile).value }
+    generate := generateMetaModel(
+      zip(jdbcXml.value, generatorXml.value),
+      zip(jdbc.value, generator.value),
+      (fullClasspath in Runtime).value.map(_.data),
+      configFile.value,
+      jooqOutputDirectory.value),
+    sourceGenerators in Compile += generate.taskValue
   )
 
-  private def generateMetaModel(xmlConfig: Option[(Elem, Elem)], codeConfig: Option[(Jdbc, Generator)], classpath: Seq[File], configFile: File) = {
-    writeConfigFile(xmlConfig, codeConfig, configFile)
+  private def generateMetaModel(
+    xmlConfig: Option[(Elem, Elem)],
+    codeConfig: Option[(Jdbc, Generator)],
+    classpath: Seq[File],
+    configFile: File,
+    outputDirectory: File): Seq[File] = {
+    writeConfigFile(xmlConfig, codeConfig, configFile, outputDirectory)
     val fork = new Fork("java", Some("org.jooq.util.GenerationTool"))
     val fullClasspath = classpath :+ configFile.getParentFile
     fork(ForkOptions(bootJars = fullClasspath), Seq("/" + configFile.getName))
+    (outputDirectory ** "*.java").get
   }
 
   private def zip[T, U](option1: Option[T], option2: Option[U]): Option[(T, U)] =
