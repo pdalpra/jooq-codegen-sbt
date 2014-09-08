@@ -34,7 +34,7 @@ object JOOQPlugin extends AutoPlugin {
     generate := generateMetaModel(
       zip(jdbcXml.value, generatorXml.value),
       zip(jdbc.value, generator.value),
-      (dependencyClasspath in Runtime).value.map(_.data),
+      (dependencyClasspath in Compile).value.map(_.data),
       configFile.value,
       jooqOutputDirectory.value),
     sourceGenerators in Compile += generate.taskValue
