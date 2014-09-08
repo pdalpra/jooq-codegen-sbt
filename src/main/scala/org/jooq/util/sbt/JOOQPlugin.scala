@@ -30,13 +30,15 @@ object JOOQPlugin extends AutoPlugin {
     jdbc := None,
     generator := None,
     jooqOutputDirectory := (sourceManaged in Compile).value / "java",
+    showGenerationLog := true,
     configFile := target.value / "jooq" / "jooq-config.xml",
     generate := generateMetaModel(
       zip(jdbcXml.value, generatorXml.value),
       zip(jdbc.value, generator.value),
       (dependencyClasspath in Compile).value.map(_.data),
       configFile.value,
-      jooqOutputDirectory.value),
+      jooqOutputDirectory.value,
+      showGenerationLog.value),
     sourceGenerators in Compile += generate.taskValue
   )
 
@@ -45,14 +47,25 @@ object JOOQPlugin extends AutoPlugin {
     codeConfig: Option[(Jdbc, Generator)],
     classpath: Seq[File],
     configFile: File,
-    outputDirectory: File): Seq[File] = {
+    outputDirectory: File,
+    showLog: Boolean): Seq[File] = {
+
     writeConfigFile(xmlConfig, codeConfig, configFile, outputDirectory)
-    val fork = new Fork("java", Some("org.jooq.util.GenerationTool"))
-    val fullClasspath = classpath :+ configFile.getParentFile
-    fork(ForkOptions(bootJars = fullClasspath), Seq("/" + configFile.getName))
+
+    val dependencyClasspath = (classpath :+ configFile.getParentFile).map(_.getAbsolutePath).mkString(sys.props("path.separator"))
+    val command = Seq("java", "-cp", dependencyClasspath, "org.jooq.util.GenerationTool", s"/${configFile.getName}")
+    val process = Process(command)
+
+    if (showLog) process.! else process.!(NullProcessLogger)
     (outputDirectory ** "*.java").get
   }
 
   private def zip[T, U](option1: Option[T], option2: Option[U]): Option[(T, U)] =
     option1 flatMap { o1 => option2 map { o2 => (o1, o2) } }
+
+  private val NullProcessLogger = new ProcessLogger {
+    override def error(s: => String): Unit = ()
+    override def buffer[T](f: => T): T = f
+    override def info(s: => String): Unit = ()
+  }
 }

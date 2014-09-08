@@ -15,6 +15,7 @@ object JOOQKeys {
   val generator = settingKey[Option[Generator]]("Generator configuration, as a case class")
 
   val jooqOutputDirectory = settingKey[File]("Output directory for the generated metamodel")
-  val configFile = settingKey[File]("JOOQ config file passed to the generator")
-  val generate = taskKey[Seq[File]]("Generate JOOQ metamodel")
+  val showGenerationLog = settingKey[Boolean]("Controls if jOOQ generation log are printed or not")
+  val configFile = settingKey[File]("jOOQ config file passed to the generator")
+  val generate = taskKey[Seq[File]]("Generate jOOQ metamodel")
 }
