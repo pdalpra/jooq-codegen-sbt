@@ -18,6 +18,8 @@ object JOOQPlugin extends AutoPlugin {
 
   import autoImport._
 
+  override def requires = plugins.JvmPlugin
+
   override def projectSettings = JOOQSettings
 
   // -------------- //
