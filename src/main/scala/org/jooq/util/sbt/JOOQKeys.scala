@@ -8,6 +8,8 @@ import scala.xml.Elem
 
 object JOOQKeys {
 
+  val jooqVersion = settingKey[String]("JOOQ version to use for the model generator")
+
   val jdbcXml = settingKey[Option[Elem]]("JDBC configuration, as an XML literal")
   val generatorXml = settingKey[Option[Elem]]("Generator configuration, as an XML literal")
 

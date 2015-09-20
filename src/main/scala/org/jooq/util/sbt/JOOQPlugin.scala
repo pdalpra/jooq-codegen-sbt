@@ -27,6 +27,7 @@ object JOOQPlugin extends AutoPlugin {
   // -------------- //
 
   val JOOQSettings = Seq(
+    libraryDependencies += "org.jooq" % "jooq-codegen" % jooqVersion.value % "provided",
     jdbcXml := None,
     generatorXml := None,
     jdbc := None,
@@ -37,7 +38,7 @@ object JOOQPlugin extends AutoPlugin {
     generate := generateMetaModel(
       zip(jdbcXml.value, generatorXml.value),
       zip(jdbc.value, generator.value),
-      (dependencyClasspath in Compile).value.map(_.data),
+      ((externalDependencyClasspath in Runtime).value ++ (externalDependencyClasspath in Compile).value).map(_.data),
       configFile.value,
       jooqOutputDirectory.value,
       showGenerationLog.value
