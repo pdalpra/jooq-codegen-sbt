@@ -6,7 +6,7 @@ import sbt._
 import sbt.Keys._
 
 import org.jooq.util.sbt.ConfigurationUtils._
-import org.jooq.util.sbt.model.{ Generator, Jdbc }
+import org.jooq.util.sbt.model.{Generator, Jdbc}
 
 object JOOQPlugin extends AutoPlugin {
 
@@ -40,17 +40,19 @@ object JOOQPlugin extends AutoPlugin {
       (dependencyClasspath in Compile).value.map(_.data),
       configFile.value,
       jooqOutputDirectory.value,
-      showGenerationLog.value),
+      showGenerationLog.value
+    ),
     sourceGenerators in Compile += generate.taskValue
   )
 
   private def generateMetaModel(
-    xmlConfig: Option[(Elem, Elem)],
-    codeConfig: Option[(Jdbc, Generator)],
-    classpath: Seq[File],
-    configFile: File,
+    xmlConfig:       Option[(Elem, Elem)],
+    codeConfig:      Option[(Jdbc, Generator)],
+    classpath:       Seq[File],
+    configFile:      File,
     outputDirectory: File,
-    showLog: Boolean): Seq[File] = {
+    showLog:         Boolean
+  ): Seq[File] = {
 
     writeConfigFile(xmlConfig, codeConfig, configFile, outputDirectory)
 

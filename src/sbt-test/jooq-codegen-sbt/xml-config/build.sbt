@@ -2,12 +2,12 @@ val test = project.in(file("."))
   .enablePlugins(JOOQPlugin)
   .settings(libraryDependencies += "org.jooq" % "jooq-codegen" % "3.4.2" % "provided")
   .settings(libraryDependencies += "org.postgresql" % "postgresql" % "9.3-1102-jdbc41" % "compile")
-  .settings(jdbcXml := Some( 
+  .settings(jdbcXml := Some(
     <jdbc>
       <driver>org.postgresql.Driver</driver>
-      <url>jdbc:postgresql:reactivefeeds</url>
-      <user>reactivefeeds</user>
-      <password>reactivefeeds</password>
+      <url>jdbc:postgresql://localhost:6000/test</url>
+      <user>test</user>
+      <password>test</password>
     </jdbc>))
   .settings(generatorXml := Some(
     <generator>

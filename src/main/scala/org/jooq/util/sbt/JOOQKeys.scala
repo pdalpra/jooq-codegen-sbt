@@ -2,7 +2,7 @@ package org.jooq.util.sbt
 
 import sbt._
 
-import org.jooq.util.sbt.model.{ Generator, Jdbc }
+import org.jooq.util.sbt.model.{Generator, Jdbc}
 
 import scala.xml.Elem
 

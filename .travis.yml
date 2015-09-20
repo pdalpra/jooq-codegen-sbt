@@ -1,0 +1,18 @@
+language: scala
+
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - sudo service docker restart ; sleep 10
+
+install:
+  - docker build -t test-db test-db/
+  - docker run -d -p 127.0.0.1:6000:5432 test-db
+  - docker ps -a
+  - sleep 10
+
+script:
+  - sbt scripted
