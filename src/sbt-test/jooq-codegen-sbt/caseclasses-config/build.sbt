@@ -1,4 +1,4 @@
-import org.jooq.util.sbt.model._
+import info.pdalpra.jooq.util.sbt.model._
 
 enablePlugins(JOOQPlugin)
 

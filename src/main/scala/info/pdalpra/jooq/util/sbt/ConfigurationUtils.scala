@@ -1,10 +1,10 @@
-package org.jooq.util.sbt
+package info.pdalpra.jooq.util.sbt
 
 import sbt._
 
 import scala.xml.Elem
 
-import org.jooq.util.sbt.model._
+import info.pdalpra.jooq.util.sbt.model._
 
 import scalaxb.CanWriteXML
 

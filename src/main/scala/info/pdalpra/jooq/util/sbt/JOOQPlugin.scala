@@ -1,12 +1,12 @@
-package org.jooq.util.sbt
+package info.pdalpra.jooq.util.sbt
 
 import scala.xml.Elem
 
 import sbt._
 import sbt.Keys._
 
-import org.jooq.util.sbt.ConfigurationUtils._
-import org.jooq.util.sbt.model.{Generator, Jdbc}
+import info.pdalpra.jooq.util.sbt.ConfigurationUtils._
+import info.pdalpra.jooq.util.sbt.model.{Generator, Jdbc}
 
 object JOOQPlugin extends AutoPlugin {
 

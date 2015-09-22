@@ -1,4 +1,4 @@
-organization  := "org.jooq"
+organization  := "info.pdalpra"
 startYear     := Some(2014)
 sbtPlugin     := true
 scalacOptions := Seq(
@@ -16,5 +16,5 @@ libraryDependencies += "org.scalaxb" %% "scalaxb" % "1.4.0"
 
 scalaxbSettings
 
-ScalaxbKeys.packageName in (Compile, ScalaxbKeys.scalaxb) := "org.jooq.util.sbt.model"
+ScalaxbKeys.packageName in (Compile, ScalaxbKeys.scalaxb) := "info.pdalpra.jooq.util.sbt.model"
 sourceGenerators in Compile += (ScalaxbKeys.scalaxb in Compile).taskValue
